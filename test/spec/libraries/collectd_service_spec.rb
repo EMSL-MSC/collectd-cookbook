@@ -12,16 +12,16 @@ describe CollectdCookbook::Resource::CollectdService do
 
     it do
       expect(chef_run).to create_directory('/etc/collectd.d')
-      .with(owner: 'collectd', group: 'collectd', mode: '0755')
+        .with(owner: 'collectd', group: 'collectd', mode: '0755')
     end
 
     it do
       expect(chef_run).to create_collectd_config('/etc/collectd.conf')
-      .with(configuration: {
-        'include' => '/etc/collectd.d/*.conf',
-        'pid_file' => '/var/lib/collectd/collectd.pid',
-        'base_dir' => '/var/lib/collectd'
-      })
+        .with(configuration: {
+                'include' => '/etc/collectd.d/*.conf',
+                'pid_file' => '/var/lib/collectd/collectd.pid',
+                'base_dir' => '/var/lib/collectd',
+              })
     end
   end
 end

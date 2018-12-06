@@ -5,8 +5,8 @@ describe_recipe 'collectd::default' do
   it { expect(chef_run).to create_poise_service_user('collectd').with(group: 'collectd') }
   it do
     expect(chef_run).to enable_collectd_service('collectd')
-    .with(user: 'collectd')
-    .with(group: 'collectd')
+      .with(user: 'collectd')
+      .with(group: 'collectd')
   end
 
   context 'with default attributes' do
