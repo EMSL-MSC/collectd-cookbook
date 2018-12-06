@@ -11,7 +11,7 @@ issues_url 'https://github.com/bloomberg/collectd-cookbook/issues'
 chef_version '~> 14'
 
 supports 'ubuntu', '>= 14.04'
-supports 'debian', '>= 8.0'
+# supports 'debian', '>= 8.0'
 supports 'centos', '>= 6.8'
 # supports 'redhat', '>= 6.0' # need to add actual rhel to testing infra
 # supports 'aix' # need to add actual testing for aix
