@@ -27,34 +27,34 @@ EOH
     recipe do
       collectd_config '/etc/collectd.conf' do
         configuration('hash' => {
-          'id' => 'id',
-          'string' => 'string',
-          'integer' => 1,
-          'true_class' => true,
-          'false_class' => false,
-          'symbol' => :symbol,
-          'array' => %w{1 2 3},
-          'hash' => {
-            'id' => 'id',
-            'string' => 'string'
-          }
-        })
+                        'id' => 'id',
+                        'string' => 'string',
+                        'integer' => 1,
+                        'true_class' => true,
+                        'false_class' => false,
+                        'symbol' => :symbol,
+                        'array' => %w(1 2 3),
+                        'hash' => {
+                          'id' => 'id',
+                          'string' => 'string',
+                        },
+                      })
       end
     end
 
     it { expect(chef_run).to render_file('/etc/collectd.conf').with_content(<<-EOH.chomp) }
 <Hash "id">
-	String "string"
-	Integer 1
-	TrueClass true
-	FalseClass false
-	Symbol symbol
-	Array "1"
-	Array "2"
-	Array "3"
-	<Hash "id">
-		String "string"
-	</Hash>
+    String "string"
+    Integer 1
+    TrueClass true
+    FalseClass false
+    Symbol symbol
+    Array "1"
+    Array "2"
+    Array "3"
+    <Hash "id">
+        String "string"
+    </Hash>
 </Hash>
 EOH
   end

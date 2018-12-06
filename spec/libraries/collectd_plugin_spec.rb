@@ -16,13 +16,13 @@ describe CollectdCookbook::Resource::CollectdPlugin do
 
     it do
       expect(chef_run).to create_collectd_config('/etc/collectd.d/syslog.conf')
-      .with(configuration: {
-        'load_plugin' => 'syslog',
-        'plugin' => {
-          'id' => 'syslog',
-          'log_level' => 'info'
-        }
-      })
+        .with(configuration: {
+                'load_plugin' => 'syslog',
+                'plugin' => {
+                  'id' => 'syslog',
+                  'log_level' => 'info',
+                },
+              })
     end
   end
 end

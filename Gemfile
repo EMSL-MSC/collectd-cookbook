@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
-gem 'poise', '~> 2.2'
-gem 'poise-service', '~> 1.0'
-gem 'poise-boiler'
+
+group :deps do
+  gem 'poise', '~> 2.8'
+  gem 'poise-service', '~> 1.5'
+  gem 'poise-boiler', '~> 1.18'
+end
 
 group :lint do
   gem 'rubocop'
@@ -12,6 +15,7 @@ group :unit, :integration do
   gem 'berkshelf'
   gem 'chefspec'
   gem 'serverspec'
+  gem 'inspec'
 end
 
 group :development do

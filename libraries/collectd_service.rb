@@ -92,7 +92,7 @@ module CollectdCookbook
           # TODO: (jbellone) Fix the package resource for AIX so that
           # it is able to install from a URL.
           package_path = if new_resource.package_source
-                           url = new_resource.package_source % { version: new_resource.package_version }
+                           url = format(new_resource.package_source, version: new_resource.package_version)
                            basename = ::File.basename(url)
                            remote_file ::File.join(Chef::Config[:file_cache_path], basename) do
                              source url
@@ -100,14 +100,37 @@ module CollectdCookbook
                            end.path
                          end
 
-          package new_resource.package_name do
-            provider Chef::Provider::Package::Solaris if platform?('solaris2')
-            provider Chef::Provider::Package::Dpkg if platform?('ubuntu') && new_resource.package_source
-            action :upgrade
-            version new_resource.package_version
-            source package_path
-            notifies :restart, new_resource, :delayed
+          if platform?('solaris2')
+            solaris_package new_resource.package_name do
+              action :upgrade
+              version new_resource.package_version
+              source package_path
+              notifies :restart, new_resource, :delayed
+            end
+          elsif platform_family?('debian')
+            dpkg_package new_resource.package_name do
+              action :upgrade
+              version new_resource.package_version
+              source package_path
+              notifies :restart, new_resource, :delayed
+            end
+          elsif platform_family?('rhel')
+            yum_package new_resource.package_name do
+              action :upgrade
+              version new_resource.package_version
+              source package_path
+              notifies :restart, new_resource, :delayed
+            end
           end
+
+          # package_provider new_resource.package_name do
+          #   # provider Chef::Provider::Package::Solaris if platform?('solaris2')
+          #   # provider Chef::Provider::Package::Dpkg if platform?('ubuntu') && new_resource.package_source
+          #   action :upgrade
+          #   version new_resource.package_version
+          #   source package_path
+          #   notifies :restart, new_resource, :delayed
+          # end
 
           # Installing package starts collectd service automatically
           # Disable this so that collectd can be managed through poise-service

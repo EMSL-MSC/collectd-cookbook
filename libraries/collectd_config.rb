@@ -65,7 +65,7 @@ module CollectdCookbook
             next if id.nil?
             [%(#{tabs}<#{key} "#{id}">),
              write_elements(value, indent.next),
-             %(#{tabs}</#{key}>)
+             %(#{tabs}</#{key}>),
             ].join("\n")
           elsif value.is_a?(String)
             %(#{tabs}#{key} "#{value}")
