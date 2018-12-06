@@ -14,7 +14,7 @@ stages:
   - lint
   - test
 
-install: echo "skip bundle install"
+install: "chef exec bundle install --with deps"
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
